@@ -11,12 +11,12 @@ Meteor.startup(function () {
   });
 });
 
-if( Meteor.is_client) {
+if( Meteor.isClient) {
   Meteor.startup( function(){
     Debug.make_test_board();
   });
 }
-// if (Meteor.is_client) {
+// if (Meteor.isClient) {
 //     Template.board.rendered = function(){
 //       Debug.make_test_board();
 //     };
