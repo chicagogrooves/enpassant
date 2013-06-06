@@ -1,0 +1,79 @@
+/* just to be explicit, our text is by default not interesting for select/copy/paste */    
+html, [draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#chat{
+  float: right;
+  height: 250px;
+  width: 150px;
+  border: 1px solid black;
+}
+
+#viewport{
+  /*border:3px solid #00a; */
+  overflow: hidden;
+  -webkit-perspective: 400; 
+  float:left ;
+/*  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+*/
+}
+
+.chess-board { 
+    border:1px solid #000; 
+  
+    height: 512px;
+    width: 512px;
+    /*left: 50%;
+        margin-left: -256px;
+        margin-top: -256px;
+        position: absolute;
+        top: 50%;*/
+    
+    -webkit-transform: rotateX(0deg);
+    transform-style: preserve-3d;
+    
+}
+
+.chess-board td {
+	background:#fff;
+	background:-moz-linear-gradient(top, #fff, #eee);
+	background:-webkit-gradient(linear,0 0, 0 100%, from(#fff), to(#eee));
+	box-shadow:inset 0 0 0 1px #fff;
+	-moz-box-shadow:inset 0 0 0 1px #fff;
+	-webkit-box-shadow:inset 0 0 0 1px #fff;
+	height:40px;
+	text-align:center;
+	vertical-align:middle;
+	width:40px;
+}
+.chess-board a {
+	color:#000;
+	display:block;
+	font-size:30px;
+	height:40px;
+	position:relative;
+	text-decoration:none;
+	text-shadow:0 1px #fff;
+	width:40px;
+}
+.chess-board tr:nth-child(odd) td:nth-child(even),
+.chess-board tr:nth-child(even) td:nth-child(odd) {
+	background:#ccc;
+	background:-moz-linear-gradient(top, #ccc, #eee);
+	background:-webkit-gradient(linear,0 0, 0 100%, from(#ccc), to(#eee));
+	box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+	-moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+	-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+}
+
+/* .sq{ border: solid 1px black; height: 30px; width: 30px;}
+.sq-b{ background-color: #aaa }
+.sq-w{ background-color: #fff } */
