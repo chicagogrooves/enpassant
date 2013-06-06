@@ -1,5 +1,5 @@
   /* a shout-out to spaceKitty */
-  //window.spaceKitty = function(){ return "meow!"; };
+  window.spaceKitty = function(){ return "meow!"; };
 
   /* begin chess code */
   function Position(file,rank, fileidx,rankidx){
@@ -249,7 +249,7 @@
           if(piece)
             sq.append( new PieceRenderer(piece).render() );
           else
-            sq.append( "x" );
+            sq.append( "&nbsp;" );
           row.append(sq);
         }
         table.append(row);

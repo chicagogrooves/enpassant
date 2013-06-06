@@ -10,3 +10,14 @@ Meteor.startup(function () {
     }
   });
 });
+
+if( Meteor.is_client) {
+  Meteor.startup( function(){
+    Debug.make_test_board();
+  });
+}
+// if (Meteor.is_client) {
+//     Template.board.rendered = function(){
+//       Debug.make_test_board();
+//     };
+// }
