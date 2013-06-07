@@ -1,0 +1,25 @@
+<template name="game">
+  {{#if game}}
+  {{#with game}}
+    <h2>{{name}}</h2>
+
+    <div id='move-list'>
+      <ol>
+    {{#each moves}}  
+      <li>{{notation}}</li>
+    {{/each}}
+      </ol>
+      {{board}}
+    </div>
+
+  {{/with}}
+  <div id='viewport'>
+    <div class='chess-board'/>
+  </div> 
+  
+  
+  {{else}}
+    <!-- flashes on first load, so hiding now. delete if awkward. >
+    <!-- h2>No active game. Start one ? </h2 -->
+  {{/if}}
+</template>
