@@ -2,19 +2,24 @@
   {{#if game}}
   {{#with game}}
     <h2>{{name}}</h2>
-
-    <div id='move-list'>
+    <div class='move-list'>
       <ol>
-    {{#each moves}}  
-      <li>{{notation}}</li>
-    {{/each}}
+      {{#each moves}}  
+        <li>{{notation}}</li>
+      {{/each}}
       </ol>
-      {{board}}
     </div>
-
   {{/with}}
+  <form id="new-move-form" onsubmit="return submitNewMove(this)">
+    From:<input id="new-move-from"/>
+    To:<input id="new-move-to"/>
+    Notation:<input id="new-move-notation"/>
+    <input type="submit"/>
+  </form>
   <div id='viewport'>
-    <div class='chess-board'/>
+    <div class='chess-board'>
+      {{{board}}}
+    </div>
   </div> 
   
   

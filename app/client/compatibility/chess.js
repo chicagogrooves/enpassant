@@ -50,27 +50,85 @@
     this.castleAvailableBlackKing = true;
     this.castleAvailableBlackQueen = true;
     
+    this.lastMoveFrom = undefined;
+    this.lastMoveTo = undefined;
+
     for(key in pieceMap){
       this[key] = pieceMap[key];
     }
   }
   
+  Board.newChessBoard = function(){
+    return new Board(
+      {
+        a8: new Rook('black'),
+        b8: new Knight('black'),
+        c8: new Bishop('black'),
+        d8: new Queen('black'),
+        e8: new King('black'),
+        f8: new Bishop('black'),
+        g8: new Knight('black'),
+        h8: new Rook('black'), 
+        a7: new Pawn('black'), b7: new Pawn('black'), c7: new Pawn('black'), d7: new Pawn('black'),
+        e7: new Pawn('black'), f7: new Pawn('black'), g7: new Pawn('black'), h7: new Pawn('black'),
+        a2: new Pawn('white'), b2: new Pawn('white'), c2: new Pawn('white'), d2: new Pawn('white'),
+        e2: new Pawn('white'), f2: new Pawn('white'), g2: new Pawn('white'), h2: new Pawn('white'),
+        a1: new Rook('white'),
+        b1: new Knight('white'),
+        c1: new Bishop('white'),
+        d1: new Queen('white'),
+        e1: new King('white'),
+        f1: new Bishop('white'),
+        g1: new Knight('white'),
+        h1: new Rook('white')
+      })
+  }
+  
   Board.xSize = 8;
   Board.ySize = 8;
+
   Board.validPosition = function(pos){
     p = new Position(pos);
     return p.fileidx >= 0 && p.fileidx < this.xSize &&
            p.rankidx >= 0 && p.rankidx < this.ySize ;
   }
+  
   Board.advanceVector = function(side){
     if(side.indexOf('w') > -1)
       return [0,1];
     else
       return [0,-1];
   }
+
+  //expects array of objects with from/to fields
+  Board.fromMoves = function(moves){
+    var newboard = Board.newChessBoard();
+    
+    var latest = newboard;
+    _.each(moves, function(m){
+      latest = latest.playMove(m);
+    });
+    
+    return latest; //TODO would be useful to return interim states as well
+  }
+  
+  Board.prototype.playMove = function(move){
+    var newboard = _.clone(this);
+    
+    var p = newboard[move.from];
+    delete newboard[move.from];
+    newboard[move.to] = p;
+    
+    newboard.lastMoveFrom = move.from;
+    newboard.lastMoveTo = move.to;
+    
+    return newboard;
+  }
+  
   Board.prototype.turnToMove = function(side){
     return (side==this.nextToMove);
   }
+  
   Board.prototype.indexOf = function(p){
     for(var key in this){
       if(this[key]==p)
@@ -78,6 +136,7 @@
     }        
     return undefined;
   }
+  
   Board.prototype.keysFromSide = function(side){
     var ranks = (side=='white') ? [7,6,5,4,3,2,1,0] : [0,1,2,3,4,5,6,7];
     var files = (side=='white') ? [0,1,2,3,4,5,6,7] : [7,6,5,4,3,2,1,0];
@@ -245,7 +304,12 @@
           var pos = keys[r*8+f];
           var sqcolor = (r*8+f) % 2 ? 'sq-w' : 'sq-b';
           var piece = board[pos];
-          var sq = $("<td/>", {title: pos, class: ['sq', sqcolor, pos].join(' ')});
+          var classes = ['sq', sqcolor, pos];
+          if(pos == board.lastMoveFrom)
+            classes.push('last-move-from');
+          if(pos == board.lastMoveTo)
+            classes.push('last-move-to');
+          var sq = $("<td/>", {id: pos, title: pos, class: classes.join(' ')});
           if(piece)
             sq.append( new PieceRenderer(piece).render() );
           else
@@ -268,4 +332,18 @@
     return [this[0]*factor, this[1]*factor];
   }
   /* end chess code */
+  
+  /* begin a little bit of js hackery */
+  function submitNewMove(){
+    var g = Games.findOne( Session.get("now-playing-game") );
+    var newmove = {
+      from: $("#new-move-from").val(),
+      to: $("#new-move-to").val(),
+      notation: $("#new-move-notation").val()
+    }
+    Games.update( g._id, {$push: {moves: newmove}});
+    return false;
+  }
+  
+  /* end a little bit of js hackery */
 

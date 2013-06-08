@@ -39,7 +39,11 @@ html, [draggable] {
     
     -webkit-transform: rotateX(0deg);
     transform-style: preserve-3d;
-    
+}
+
+.move-list {
+  clear: right;
+  float: right;
 }
 
 .chess-board td {
@@ -63,6 +67,14 @@ html, [draggable] {
 	text-shadow:0 1px #fff;
 	width:30px;
 }
+
+.chess-board .last-move-to{
+  border: solid 1px #00f;
+}
+.chess-board .last-move-from{
+  border: solid 1px #00a;
+}
+
 .chess-board tr:nth-child(odd) td:nth-child(even),
 .chess-board tr:nth-child(even) td:nth-child(odd) {
 	background:#ccc;

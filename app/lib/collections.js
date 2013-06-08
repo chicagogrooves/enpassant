@@ -14,3 +14,9 @@ if( Meteor.isServer && Games.find().count()==0 ){
     Games.insert(g);
   });
 }
+
+Games.allow({
+  update: function (userId, docs, fields, modifier) {
+    return true; //eventually only pushing moves really
+  }
+})
