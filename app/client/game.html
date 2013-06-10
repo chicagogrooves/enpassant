@@ -1,27 +1,29 @@
 <template name="game">
   {{#if game}}
-  {{#with game}}
-    <h2>{{name}}</h2>
-    <div class='move-list'>
-      <ol>
-      {{#each moves}}  
-        <li>{{notation}}</li>
-      {{/each}}
-      </ol>
-    </div>
-  {{/with}}
-  <form id="new-move-form" onsubmit="return submitNewMove(this)">
-    From:<input id="new-move-from"/>
-    To:<input id="new-move-to"/>
-    Notation:<input id="new-move-notation"/>
-    <input type="submit"/>
-  </form>
-  <div id='viewport'>
-    <div class='chess-board'>
-      {{{board}}}
-    </div>
-  </div> 
+    {{#with game}}
+      <h2>{{name}}</h2>
+      <div class='move-list'>
+        <ol>
+        {{#each moves}}  
+          <li>{{notation}}</li>
+        {{/each}}
+        </ol>
+      </div>
+    {{/with}}
   
+    <div id='viewport'>
+      <div class='chess-board'>
+        {{{board}}}
+      </div>
+    </div> 
+
+    <form id="new-move-form" onsubmit="return submitNewMove(this)">
+      <strong>New move</strong>
+      From:<input id="new-move-from"/>
+      To:<input id="new-move-to"/>
+      Notation:<input id="new-move-notation"/>
+      <input type="submit"/>
+    </form>
   
   {{else}}
     <!-- flashes on first load, so hiding now. delete if awkward. >

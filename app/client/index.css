@@ -85,6 +85,14 @@ html, [draggable] {
 	-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 }
 
+#new-move-form{
+  float: left; 
+}
+#new-move-form input{
+  font-size: 15px;
+  width: 60px;
+}
+
 /* .sq{ border: solid 1px black; height: 30px; width: 30px;}
 .sq-b{ background-color: #aaa }
 .sq-w{ background-color: #fff } */
